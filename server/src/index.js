@@ -1,4 +1,4 @@
-/*  packages */
+/* packages */
 import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -10,14 +10,14 @@ import connectDB from "./configurations/db.config.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 
 /* routes imports */
-import usersRouter from "./routes/user.route.js";
+import usersRouter from "./routes/users.route.js";
 import booksRouter from "./routes/books.route.js";
 import ordersRouter from "./routes/orders.route.js";
 
 /* set variable */
 const app = express();
 
-/*  set built-in middleware */
+/* set built-in middleware */
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "16kb" }));

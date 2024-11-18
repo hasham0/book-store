@@ -2,7 +2,7 @@ import { FC } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { BookTS } from "../../types";
 import { Link } from "react-router-dom";
-import getImgURL from "../../utils/getImageUrl";
+import getImgURL from "../../lib/services/getImageUrl";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { addToCart } from "../../redux/features/cart/CartSlice";
 
@@ -12,9 +12,8 @@ type Props = {
 
 const BookCard: FC<Props> = ({ book }) => {
   const dispatched = useAppDispatch();
-  const hanldeAddToCart = () => {
-    dispatched(addToCart(book));
-  };
+  const hanldeAddToCart = () => dispatched(addToCart(book));
+
   return (
     <div className="flex rounded-lg p-4 transition-shadow duration-300">
       <div className="flex flex-col gap-4 sm:h-72 sm:flex-row sm:items-center sm:justify-center">
@@ -46,6 +45,7 @@ const BookCard: FC<Props> = ({ book }) => {
             </span>
           </p>
           <button
+            type="button"
             onClick={hanldeAddToCart}
             className="btn-primary flex items-center gap-1 space-x-1 px-6"
           >

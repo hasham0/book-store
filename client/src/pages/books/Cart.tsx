@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { RootState } from "../../redux/store";
 import {
-  amount,
   clearCart,
-  decQty,
-  incQty,
+  decreaseQuantity,
+  increaseQuantity,
+  totalProductsAmountInCart,
   removeFromCart,
 } from "../../redux/features/cart/CartSlice";
-import getImgURL from "../../utils/getImageUrl";
+import getImgURL from "../../lib/services/getImageUrl";
 import { useEffect } from "react";
 import Button from "../../components/button";
 import { FaPlus, FaMinus } from "react-icons/fa6";
@@ -26,7 +26,7 @@ export default function Cart({}: Props) {
     .toFixed(2);
 
   useEffect(() => {
-    dispatched(amount(Number(totalPrice)));
+    dispatched(totalProductsAmountInCart(Number(totalPrice)));
   }, [totalPrice]);
 
   const handleRemoveFromCart = (id: number) => {
@@ -93,7 +93,7 @@ export default function Cart({}: Props) {
                             <Button
                               buttonLabel={<FaPlus />}
                               hanldeClick={() =>
-                                dispatched(incQty(product._id))
+                                dispatched(increaseQuantity(product._id))
                               }
                             />
 
@@ -103,7 +103,7 @@ export default function Cart({}: Props) {
                             <Button
                               buttonLabel={<FaMinus />}
                               hanldeClick={() =>
-                                dispatched(decQty(product._id))
+                                dispatched(decreaseQuantity(product._id))
                               }
                             />
                           </div>

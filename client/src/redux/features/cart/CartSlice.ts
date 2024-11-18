@@ -18,6 +18,30 @@ const initialState: CartState = {
     Number(JSON.parse(localStorage.getItem("cartData")!)) || Number(0),
 };
 
+// TODO: check quantity measure function
+const quantityMeasure = (
+  cartItems: CartItemTS[],
+  id: number,
+  type: "INC" | "DEC",
+): CartItemTS[] => {
+  return cartItems.map((item) => {
+    if (item._id === id) {
+      switch (type) {
+        case "INC":
+          return { ...item, quantity: item.quantity + 1 };
+        case "DEC":
+          if (item.quantity > 1) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        default:
+          return item;
+      }
+    }
+    return item;
+  });
+};
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -40,26 +64,20 @@ export const cartSlice = createSlice({
       );
       localStorage.setItem("cartData", JSON.stringify(state.cartItems));
     },
-    incQty: (state: CartState, action: PayloadAction<number>) => {
-      const cartitem = state.cartItems.find(
-        (item) => item._id === action.payload,
-      );
-      if (cartitem) {
-        cartitem.quantity += 1;
-        localStorage.setItem("cartData", JSON.stringify(state.cartItems));
-      }
-    },
-    decQty: (state, action: PayloadAction<number>) => {
-      const cartItem = state.cartItems.find(
-        (item) => item._id === action.payload,
-      );
-      if (cartItem && cartItem.quantity > 1) {
-        cartItem.quantity -= 1;
-        localStorage.setItem("cartData", JSON.stringify(state.cartItems));
-      }
+    increaseQuantity: (state: CartState, action: PayloadAction<number>) => {
+      state.cartItems = quantityMeasure(state.cartItems, action.payload, "INC");
+      localStorage.setItem("cartData", JSON.stringify(state.cartItems));
     },
 
-    amount: (state: CartState, action: PayloadAction<number>) => {
+    decreaseQuantity: (state: CartState, action: PayloadAction<number>) => {
+      state.cartItems = quantityMeasure(state.cartItems, action.payload, "DEC");
+      localStorage.setItem("cartData", JSON.stringify(state.cartItems));
+    },
+
+    totalProductsAmountInCart: (
+      state: CartState,
+      action: PayloadAction<number>,
+    ) => {
       state.totalAmount = action.payload;
       localStorage.setItem("totalAmount", JSON.stringify(state.totalAmount));
     },
@@ -72,7 +90,13 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, incQty, decQty, amount, clearCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  decreaseQuantity,
+  increaseQuantity,
+  totalProductsAmountInCart,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
