@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { API_BOOK } from "../constant";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/book" }),
-  endpoints: (builder) => ({
-    registerUser: builder.mutation<any, any>({
-      query: (name) => `/${name}`,
-    }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_SERVER_PORT}/${API_BOOK}`,
   }),
+  endpoints: (builder) => ({}),
 });
 
-export const { useRegisterUserMutation } = bookApi;
+export const {} = bookApi;

@@ -17,7 +17,7 @@ const Recommened: FC<Props> = ({}) => {
       .then((result) => setBooks(result));
   }, []);
   return (
-    <section className="py-16">
+    <section className="py-6">
       <h2 className="mb-6 text-3xl font-semibold">Recommended for you </h2>
       <Swiper
         slidesPerView={1}

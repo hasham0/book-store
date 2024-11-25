@@ -11,7 +11,7 @@ type Props = {};
 
 const News: FC<Props> = ({}: Props) => {
   return (
-    <section className="py-16">
+    <section className="py-6">
       <h2 className="mb-6 text-3xl font-semibold">News </h2>
       <Swiper
         slidesPerView={1}

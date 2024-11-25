@@ -1,9 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
 .swiper {
-  width: 100%;
+  width: 100vw;
   height: 100%;
 }
+
+/* @media only screen and (max-width: 638px) {
+  .swiper {
+    width: 100%;
+    height: 90%;
+  }
+} */
 
 .swiper-slide {
   background: #fff;
@@ -12,12 +19,12 @@
   align-items: center;
 }
 
-.swiper-slide img {
+/* .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
+} */
 
 .swiper-button-prev {
   display: none !important;

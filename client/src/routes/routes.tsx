@@ -1,15 +1,17 @@
-import { lazy } from "react";
 import App from "../App";
+import { lazy } from "react";
 import Home from "../pages/home/Home";
 import { createBrowserRouter } from "react-router-dom";
 import SuspenseWrapper from "../components/suspense-wapper";
-import Checkout from "../pages/books/Checkout";
 
+// lazy imports
 const Login = lazy(() => import("../pages/auth/Login"));
 const Register = lazy(() => import("../pages/auth/Register"));
 const Cart = lazy(() => import("../pages/books/Cart"));
+const DynamicBook = lazy(() => import("../pages/books/Dynamic-Book"));
+const Checkout = lazy(() => import("../pages/books/Checkout"));
 
-const router = createBrowserRouter([
+const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -18,9 +20,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      { path: "/orders", element: <h1>orders page</h1> },
-      { path: "/orders", element: <h1>orders page</h1> },
-      { path: "/about", element: <h1>about page</h1> },
       {
         path: "/login",
         element: (
@@ -34,6 +33,14 @@ const router = createBrowserRouter([
         element: (
           <SuspenseWrapper>
             <Register />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: "/books/:id",
+        element: (
+          <SuspenseWrapper>
+            <DynamicBook />
           </SuspenseWrapper>
         ),
       },
@@ -57,4 +64,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default Router;

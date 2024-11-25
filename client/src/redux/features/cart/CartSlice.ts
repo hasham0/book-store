@@ -15,7 +15,7 @@ interface CartState {
 const initialState: CartState = {
   cartItems: JSON.parse(localStorage.getItem("cartData")!) || [],
   totalAmount:
-    Number(JSON.parse(localStorage.getItem("cartData")!)) || Number(0),
+    Number(JSON.parse(localStorage.getItem("totalAmount")!)) || Number(0),
 };
 
 // TODO: check quantity measure function

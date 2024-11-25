@@ -20,14 +20,20 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["react", "@typescript-eslint", "react-hooks", "jsx-a11y"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "jsx-a11y",
+    "react-refresh",
+  ],
   rules: {
     // General ESLint rules
     semi: ["error", "always"],
     quotes: ["error", "single"],
     "no-console": "warn",
     "prefer-const": "error",
-
+    "react-refresh/only-export-components": "warn",
     // TypeScript-specific rules
     "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/explicit-module-boundary-types": "off",

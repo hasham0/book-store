@@ -35,7 +35,7 @@ const TopSeller: FC<Props> = ({}) => {
         );
 
   return (
-    <section className="py-10">
+    <section className="py-6">
       <h2 className="mb-6 text-3xl font-semibold">Top Sellers</h2>
       {/* category filter */}
       <div className="mb-8 flex items-center">
