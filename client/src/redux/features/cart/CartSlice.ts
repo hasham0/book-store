@@ -54,7 +54,7 @@ export const cartSlice = createSlice({
         state.cartItems.push({ ...action.payload, quantity: 1 });
         toast.success("item added successfully");
       } else {
-        toast("item already exist");
+        toast.error("item already exist");
       }
       localStorage.setItem("cartData", JSON.stringify(state.cartItems));
     },
