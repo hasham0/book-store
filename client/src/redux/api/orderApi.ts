@@ -11,3 +11,4 @@ export const orderApi = createApi({
 });
 
 export const {} = orderApi;
+export default orderApi;

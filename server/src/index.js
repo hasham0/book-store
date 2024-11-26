@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import NodeCache from "node-cache";
 import cors from "cors";
 
 /* project imports */
@@ -16,6 +17,9 @@ import ordersRouter from "./routes/orders.route.js";
 
 /* set variable */
 const app = express();
+export const nodeChache = new NodeCache({
+  stdTTL: 60,
+});
 
 /* set built-in middleware */
 app.use(express.static("public"));
@@ -25,7 +29,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: process.env.CROSS_ORIGIN,
+    origin: [process.env.CROSS_ORIGIN],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   })

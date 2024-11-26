@@ -1,16 +1,17 @@
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { BookTS } from "../../types";
 import BookCard from "../books/Book-Card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
+import { useAllBooksQuery } from "../../redux/api/bookApi";
 
 type Props = {};
 
 const TopSeller: FC<Props> = ({}) => {
-  const [books, setBooks] = useState<BookTS[]>([]);
+  const { data: books, isLoading, isError } = useAllBooksQuery();
+
   const categories: Array<string> = [
     "Choose a genre",
     "Business",
@@ -21,18 +22,15 @@ const TopSeller: FC<Props> = ({}) => {
   const [selectedCategory, setSelectedCategory] =
     useState<string>("Choose a genre");
 
-  useEffect(() => {
-    fetch("bookData.json")
-      .then((res) => res.json())
-      .then((result) => setBooks(result));
-  }, []);
-
   const filteredBooks =
     selectedCategory === "Choose a genre"
-      ? books
-      : books.filter(
+      ? books?.data
+      : books?.data.filter(
           (book) => book.category === selectedCategory.toLowerCase(),
         );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>something went wrong</div>;
 
   return (
     <section className="py-6">
@@ -80,12 +78,11 @@ const TopSeller: FC<Props> = ({}) => {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {filteredBooks.length > 0 &&
-          filteredBooks.map((book, index) => (
-            <SwiperSlide key={index}>
-              <BookCard book={book} />
-            </SwiperSlide>
-          ))}
+        {filteredBooks?.map((book, index) => (
+          <SwiperSlide key={index}>
+            <BookCard book={book} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </section>
   );
